@@ -6,12 +6,28 @@ module.exports = (params) => {
   const { speakerService } = params
 
   router.get('/', async (req, res) => {
+    
     const speakers = await speakerService.getList()
-    return res.json(speakers)
+    const artwork = await speakerService.getAllArtwork()
+
+    res.render('layout', {
+      pageTitle: 'Speakers',
+      template: 'speakers',
+      speakers,
+      artwork
+    })
   })
 
-  router.get('/:speakerId', (req, res) => {
-    return res.send(`Detail page of ${req.params.speakerId}`)
+  router.get('/:speakerId', async (req, res) => {
+    const speaker = await speakerService.getSpeaker(req.params.speakerId)
+    const artwork = await speakerService.getArtworkForSpeaker(req.params.speakerId)
+    
+    res.render('layout', {
+      pageTitle: 'Speakers',
+      template: 'speakers-detail',
+      speaker,
+      artwork
+    })
   })
 
   return router

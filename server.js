@@ -15,7 +15,7 @@ const app = express()
 const port = 3000
 
 // Enable for production, when using reverse proxy
-app.set('trust proxy', 1)
+//app.set('trust proxy', 1)
 
 app.use(
   cookieSession({
@@ -27,18 +27,18 @@ app.use(
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, './views'))
 
-app.locals.siteName = 'Manvinder Demo 1';
+app.locals.siteName = 'Manvinder Demo 1'
 
 app.use(express.static(path.join(__dirname, './static')))
 
 app.use(async (req, res, next) => {
-    try {
-        const names = await speakerService.getNames();
-        res.locals.speakerNames = names;        
-        return next();
-    } catch (err) {
-        return next(err)
-    }
+  try {
+    const names = await speakerService.getNames()
+    res.locals.speakerNames = names
+    return next()
+  } catch (err) {
+    return next(err)
+  }
 })
 
 app.use(

@@ -1,7 +1,6 @@
 name: A Github Actions workflow that lints on every push
 
-on:
-  push
+on: push
 
 jobs:
   lint_job:
