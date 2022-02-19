@@ -14,7 +14,7 @@ module.exports = (params) => {
     }
     req.session.visitcount += 1
     console.log(`Total webpage visits ${req.session.visitcount}`)*/
-    const artwork = await speakerService.getAllArtwork();
+    const artwork = await speakerService.getAllArtwork()
     const topSpeakers = await speakerService.getList()
 
     res.render('layout', {
