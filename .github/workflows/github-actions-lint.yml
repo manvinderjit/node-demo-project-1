@@ -1,0 +1,23 @@
+name: A Github Actions workflow that lints on every push
+
+on:
+  push
+
+jobs:
+  lint_job:
+    name: Linting Job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch Source Code
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        run: npm install
+
+      - name: Lint Format and Fix
+        run: npm run format
+
+      - run: npm run lint
+
+      - run: npm run lint:fix
