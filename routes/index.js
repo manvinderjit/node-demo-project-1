@@ -8,21 +8,19 @@ const router = express.Router()
 module.exports = (params) => {
   const { speakerService } = params
 
-  router.get('/', async (req, res) => {
-    /*if (!req.session.visitcount) {
-      req.session.visitcount = 0
+  router.get('/', async (req, res, next) => {
+    try {
+      const artwork = await speakerService.getAllArtwork()
+      const topSpeakers = await speakerService.getList()
+      return res.render('layout', {
+        pageTitle: 'Welcome',
+        template: 'index',
+        topSpeakers,
+        artwork
+      })
+    } catch (err) {
+      return next(err)
     }
-    req.session.visitcount += 1
-    console.log(`Total webpage visits ${req.session.visitcount}`)*/
-    const artwork = await speakerService.getAllArtwork()
-    const topSpeakers = await speakerService.getList()
-
-    res.render('layout', {
-      pageTitle: 'Welcome',
-      template: 'index',
-      topSpeakers,
-      artwork
-    })
   })
 
   router.use('/speakers', speakersRoute(params))
